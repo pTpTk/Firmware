@@ -79,7 +79,7 @@ void CollisionPrevention::reset_constraints()
 	_move_constraints_y.zero();  //constraint in y-direction
 }
 
-void CollisionPrevention::publish_constraints(const Vector2f &original_setpoint, const Vector2f &adapted_setpoint)
+void CollisionPrevention::publish_constraints(const Vector3f &original_setpoint, const Vector3f &adapted_setpoint)
 {
 
 	collision_constraints_s	constraints;	/**< collision constraints message */
@@ -143,7 +143,7 @@ void CollisionPrevention::update_range_constraints()
 	}
 }
 
-void CollisionPrevention::modifySetpoint(Vector2f &original_setpoint, const float max_speed)
+void CollisionPrevention::modifySetpoint(Vector3f &original_setpoint, const float max_speed)
 {
 	reset_constraints();
 
@@ -164,9 +164,10 @@ void CollisionPrevention::modifySetpoint(Vector2f &original_setpoint, const floa
 	_move_constraints_y(1) = max_speed * (1.f - _move_constraints_y_normalized(1));
 
 	//constrain the velocity setpoint to respect the velocity limits
-	Vector2f new_setpoint;
+	Vector3f new_setpoint;
 	new_setpoint(0) = math::constrain(original_setpoint(0), -_move_constraints_x(0), _move_constraints_x(1));
 	new_setpoint(1) = math::constrain(original_setpoint(1), -_move_constraints_y(0), _move_constraints_y(1));
+	new_setpoint(2) = original_setpoint(2);
 
 	//warn user if collision prevention starts to interfere
 	bool currently_interfering = (new_setpoint(0) < original_setpoint(0) - 0.05f * max_speed
