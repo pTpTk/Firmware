@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# @name Drone Can't FLy
+#
+# @type Quadrotor x
+# @class Copter
+#
+# @output MAIN1 TopRight
+# @output MAIN2 BottomLeft
+# @output MAIN3 TopLeft
+# @output MAIN4 BottomRight
+#
+
+sh /etc/init.d/rc.mc_defaults
+
+set MIXER drone_cant_fly_aggressive
+
+set PWN_OUT 1234

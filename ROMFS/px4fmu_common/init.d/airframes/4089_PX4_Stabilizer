@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# @name PX4_Stabilizer
+#
+# @type Quadrotor x
+# @class Copter
+#
+# @output MAIN1 TopRight
+# @output MAIN2 BottomLeft
+# @output MAIN3 TopLeft
+# @output MAIN4 BottomRight
+#
+
+sh /etc/init.d/rc.mc_defaults
+
+set MIXER PX4_Stabilizer
+
+set PWN_OUT 1234
